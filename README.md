@@ -8,4 +8,4 @@ Usage
 
 Assign color to the Color property or set onValueChange callback by calling SetOnValueChangeCallback( Action<Color> onValueChange )
 
-![Demo](http://i.imgur.com/iPwKQdb.gif)
+![Video]https://youtu.be/Pmm9emSL6Pc
