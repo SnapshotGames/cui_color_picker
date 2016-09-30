@@ -1,4 +1,4 @@
-Single script/prefab HSV Color picker for Unity UI
+Color Picker for Unity UI in a single script/prefab
 ======
 
 ![Screenshot](http://i.imgur.com/OzruMEX.png)
