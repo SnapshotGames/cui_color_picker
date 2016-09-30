@@ -1,4 +1,4 @@
-Single C#/prefab file HSV Color picker for Unity UI
+Single script/prefab HSV Color picker for Unity UI
 ======
 
 ![Screenshot](http://i.imgur.com/OzruMEX.png)
