@@ -3,7 +3,7 @@ Single C#/prefab file HSV Color picker for Unity UI
 
 ![Screenshot](http://i.imgur.com/OzruMEX.png)
 
-https://youtu.be/Pmm9emSL6Pc
+[Link to video]https://youtu.be/Pmm9emSL6Pc
 
 Usage
 ======
