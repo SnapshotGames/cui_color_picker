@@ -111,8 +111,10 @@ public class CUIColorPicker : MonoBehaviour
             var resultColor = c0 + c1 + c2 + c3;
             var resImg = result.GetComponent<Image>();
             resImg.color = resultColor;
-            if ( _onValueChange != null && _color != resultColor ) {
-                _onValueChange( resultColor );
+            if ( _color != resultColor ) {
+                if ( _onValueChange != null ) {
+                    _onValueChange( resultColor );
+                }
                 _color = resultColor;
             }
         };
