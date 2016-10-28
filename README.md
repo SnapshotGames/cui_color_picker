@@ -8,4 +8,5 @@ Color Picker for Unity UI in a single script/prefab
 Usage
 ======
 
-Assign color to the Color property or set onValueChange callback by calling SetOnValueChangeCallback( Action<Color> onValueChange )
+The interface consists of 'Color' read/write property and a 'onValueChange' callback.
+Call SetOnValueChangeCallback( Action<Color> onValueChange ) to set the callback.
