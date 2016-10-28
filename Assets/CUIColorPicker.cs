@@ -40,7 +40,8 @@ public class CUIColorPicker : MonoBehaviour
         return lm.x >= 0 && lm.y >= 0 && lm.x < size.x && lm.y < size.y;
     }
 
-    private static Vector2 GetWidgetSize( GameObject go ) {
+    private static Vector2 GetWidgetSize( GameObject go ) 
+    {
         var rt = go.transform as RectTransform;
         var corners = new Vector3[4];
         rt.GetWorldCorners( corners );
