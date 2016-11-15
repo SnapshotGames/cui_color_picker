@@ -11,7 +11,7 @@ public class CUIColorPicker : MonoBehaviour
     }
     private Color _color = Color.red;
     private Action<Color> _onValueChange;
-    private Action _update = () => {};
+    private Action _update;
 
     private static void RGBToHSV( Color color, out float h, out float s, out float v )
     {
@@ -159,7 +159,7 @@ public class CUIColorPicker : MonoBehaviour
         _update = idle;
     }
 
-    void Start()
+    void Awake()
     {
         Color = Color.red;
     }
