@@ -20,7 +20,7 @@ public class CUIColorPicker : MonoBehaviour
         var d = cmax - cmin;
         if ( d == 0 ) {
             h = 0;
-        } if ( cmax == color.r ) {
+        } else if ( cmax == color.r ) {
             h = Mathf.Repeat( ( color.g - color.b ) / d, 6 );
         } else if ( cmax == color.g ) {
             h = ( color.b - color.r ) / d + 2;
