@@ -31,14 +31,14 @@ public class CUIColorPicker : MonoBehaviour
         v = cmax;
     }
 
-    private static bool GetLocalMouse( Vector2 origin, Vector2 size, out Vector2 result ) 
-    {
-        var lm = ( Vector2 )Input.mousePosition - origin;
-        var x = Mathf.Clamp( lm.x, 0, size.x );
-        var y = Mathf.Clamp( lm.y, 0, size.y );
-        result = new Vector2( x, y );
-        return lm.x >= 0 && lm.y >= 0 && lm.x < size.x && lm.y < size.y;
-    }
+    private static bool GetLocalMouse( GameObject go, out Vector2 result ) 
+	{
+		var rt = ( RectTransform )go.transform;
+		var mp = rt.InverseTransformPoint( Input.mousePosition );
+		result.x = Mathf.Clamp( mp.x, rt.rect.min.x, rt.rect.max.x );
+		result.y = Mathf.Clamp( mp.y, rt.rect.min.y, rt.rect.max.y );
+		return rt.rect.Contains( mp );
+	}
 
     private static Vector2 GetWidgetSize( GameObject go ) 
     {
@@ -127,16 +127,16 @@ public class CUIColorPicker : MonoBehaviour
         Action idle = () => {
             if ( Input.GetMouseButtonDown( 0 ) ) {
                 Vector2 mp;
-                if ( GetLocalMouse( hueGO.transform.position, hueSz, out mp ) ) {
+                if ( GetLocalMouse( hueGO, out mp ) ) {
                     _update = dragH;
-                } else if ( GetLocalMouse( satvalGO.transform.position, satvalSz, out mp ) ) {
+                } else if ( GetLocalMouse( satvalGO, out mp ) ) {
                     _update = dragSV;
                 }
             }
         };
         dragH = () => {
             Vector2 mp;
-            GetLocalMouse( hueGO.transform.position, hueSz, out mp );
+            GetLocalMouse( hueGO, out mp );
             Hue = mp.y / hueSz.y * 6;
             applyHue();
             applySaturationValue();
@@ -147,7 +147,7 @@ public class CUIColorPicker : MonoBehaviour
         };
         dragSV = () => {
             Vector2 mp;
-            GetLocalMouse( satvalGO.transform.position, satvalSz, out mp );
+            GetLocalMouse( satvalGO, out mp );
             Saturation = mp.x / satvalSz.x;
             Value = mp.y / satvalSz.y;
             applySaturationValue();
