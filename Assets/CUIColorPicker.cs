@@ -32,13 +32,13 @@ public class CUIColorPicker : MonoBehaviour
     }
 
     private static bool GetLocalMouse( GameObject go, out Vector2 result ) 
-	{
-		var rt = ( RectTransform )go.transform;
-		var mp = rt.InverseTransformPoint( Input.mousePosition );
-		result.x = Mathf.Clamp( mp.x, rt.rect.min.x, rt.rect.max.x );
-		result.y = Mathf.Clamp( mp.y, rt.rect.min.y, rt.rect.max.y );
-		return rt.rect.Contains( mp );
-	}
+    {
+        var rt = ( RectTransform )go.transform;
+        var mp = rt.InverseTransformPoint( Input.mousePosition );
+        result.x = Mathf.Clamp( mp.x, rt.rect.min.x, rt.rect.max.x );
+        result.y = Mathf.Clamp( mp.y, rt.rect.min.y, rt.rect.max.y );
+        return rt.rect.Contains( mp );
+    }
 
     private static Vector2 GetWidgetSize( GameObject go ) 
     {
