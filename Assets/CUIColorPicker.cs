@@ -42,10 +42,8 @@ public class CUIColorPicker : MonoBehaviour
 
     private static Vector2 GetWidgetSize( GameObject go ) 
     {
-        var rt = go.transform as RectTransform;
-        var corners = new Vector3[4];
-        rt.GetWorldCorners( corners );
-        return corners[2] - corners[0];
+        var rt = ( RectTransform )go.transform;
+        return rt.rect.size;
     }
 
     private GameObject GO( string name )
@@ -157,6 +155,15 @@ public class CUIColorPicker : MonoBehaviour
             }
         };
         _update = idle;
+    }
+
+    public void SetRandomColor()
+    {
+        var rng = new System.Random();
+        var r = ( rng.Next() % 1000 ) / 1000.0f;
+        var g = ( rng.Next() % 1000 ) / 1000.0f;
+        var b = ( rng.Next() % 1000 ) / 1000.0f;
+        Color = new Color( r, g, b );
     }
 
     void Awake()
