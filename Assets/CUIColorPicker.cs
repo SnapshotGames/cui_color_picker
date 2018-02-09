@@ -1,9 +1,17 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public class CUIColorPicker : MonoBehaviour
 {
+    [System.Serializable]
+	public class OnValueChangeUnityEvent : UnityEvent<Color>
+	{
+	}
+	public OnValueChangeUnityEvent onValueChange ;
+    
     public Color Color { get { return _color; } set { Setup( value ); } }
     public void SetOnValueChangeCallback( Action<Color> onValueChange )
     {
@@ -113,6 +121,9 @@ public class CUIColorPicker : MonoBehaviour
                 if ( _onValueChange != null ) {
                     _onValueChange( resultColor );
                 }
+                if ( onValueChange != null ) {
+					onValueChange.Invoke( resultColor );
+				}
                 _color = resultColor;
             }
         };
