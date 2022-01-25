@@ -57,7 +57,8 @@ MonoBehaviour:
   hueKnob: {fileID: 154794}
   result: {fileID: 154790}
   color: {r: 1, g: 1, b: 1, a: 1}
-  onValueChange:
+  inputMethod: 0
+  onValueChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &154786
@@ -172,7 +173,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 15, y: 0}
-  m_SizeDelta: {x: 24, y: 0}
+  m_SizeDelta: {x: 25, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &22254788
 CanvasRenderer:
