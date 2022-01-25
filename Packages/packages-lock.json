@@ -1,11 +1,5 @@
 {
   "dependencies": {
-    "com.linux1230.cuicolorselector": {
-      "version": "file:CUIColorPicker",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
-    },
     "com.unity.device-simulator": {
       "version": "3.0.3-preview",
       "depth": 0,
