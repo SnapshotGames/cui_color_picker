@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.unity.device-simulator": "3.0.3-preview",
     "com.unity.ide.visualstudio": "2.0.14",
     "com.unity.ide.vscode": "1.2.4",
     "com.unity.ugui": "1.0.0",

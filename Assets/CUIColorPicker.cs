@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CUIColorPicker : MonoBehaviour
@@ -17,6 +18,8 @@ public class CUIColorPicker : MonoBehaviour
     private GameObject result;
     [SerializeField]
     private Color color = Color.white;
+    [SerializeField]
+    private InputMethod inputMethod;
 
     [Space]
     public UnityEvent<Color> onValueChanged;
@@ -28,6 +31,10 @@ public class CUIColorPicker : MonoBehaviour
     private Texture2D saturationValueTexture;
     private Vector2 hueSize;
     private Vector2 saturationValueSize;
+    private Touch touch;
+    private Vector3 inputPoint;
+
+    private enum InputMethod {Mouse, Touch}
 
     public Color Color
     {
@@ -87,6 +94,8 @@ public class CUIColorPicker : MonoBehaviour
 
         saturationValue.GetComponent<Image>().sprite = Sprite.Create(saturationValueTexture, new Rect(0.5f, 0.5f, 1, 1), new Vector2(0.5f, 0.5f));
         saturationValueSize = ((RectTransform)saturationValue.transform).rect.size;
+
+        inputPoint = Vector3.zero;
     }
 
     private void Update()
@@ -110,23 +119,23 @@ public class CUIColorPicker : MonoBehaviour
 
         Action idle = () =>
         {
-            if (Input.GetMouseButtonDown(0))
+            if (GetInputDown())
             {
-                if (GetLocalMouse(hue, out Vector2 mp))
+                if (GetLocalInput(hue, out Vector2 mp))
                     update = dragH;
-                else if (GetLocalMouse(saturationValue, out mp))
+                else if (GetLocalInput(saturationValue, out mp))
                     update = dragSV;
             }
         };
 
         dragH = () =>
         {
-            GetLocalMouse(hue, out Vector2 mp);
+            GetLocalInput(hue, out Vector2 mp);
             colorHue = mp.y / hueSize.y * 6;
             ApplyHue(colorHue);
             ApplySaturationValue(colorSaturation, colorValue);
             hueKnob.transform.localPosition = new Vector2(hueKnob.transform.localPosition.x, mp.y);
-            if (Input.GetMouseButtonUp(0))
+            if (GetInputUp())
             {
                 update = idle;
             }
@@ -134,12 +143,12 @@ public class CUIColorPicker : MonoBehaviour
 
         dragSV = () =>
         {
-            GetLocalMouse(saturationValue, out Vector2 mp);
+            GetLocalInput(saturationValue, out Vector2 mp);
             colorSaturation = mp.x / saturationValueSize.x;
             colorValue = mp.y / saturationValueSize.y;
             ApplySaturationValue(colorSaturation, colorValue);
             saturationValueKnob.transform.localPosition = mp;
-            if (Input.GetMouseButtonUp(0))
+            if (GetInputUp())
             {
                 update = idle;
             }
@@ -183,12 +192,68 @@ public class CUIColorPicker : MonoBehaviour
         }
     }
 
-    private static bool GetLocalMouse(GameObject go, out Vector2 result)
+    private bool GetLocalInput(GameObject go, out Vector2 result)
     {
-        var rt = (RectTransform)go.transform;
-        var mp = rt.InverseTransformPoint(Input.mousePosition);
-        result.x = Mathf.Clamp(mp.x, rt.rect.min.x, rt.rect.max.x);
-        result.y = Mathf.Clamp(mp.y, rt.rect.min.y, rt.rect.max.y);
-        return rt.rect.Contains(mp);
+        RectTransform rt = (RectTransform)go.transform;
+        switch (inputMethod)
+        {
+            case InputMethod.Mouse:
+                inputPoint = rt.InverseTransformPoint(Input.mousePosition);
+                break;
+            case InputMethod.Touch:
+                if (Input.touchCount == 1)
+                {
+                    touch = Input.GetTouch(0);
+
+                    if (touch.phase != TouchPhase.Ended && touch.phase != TouchPhase.Canceled)
+                        inputPoint = rt.InverseTransformPoint(touch.position);
+                }
+                break;
+            default:
+                break;
+        }
+        result.x = Mathf.Clamp(inputPoint.x, rt.rect.min.x, rt.rect.max.x);
+        result.y = Mathf.Clamp(inputPoint.y, rt.rect.min.y, rt.rect.max.y);
+        return rt.rect.Contains(inputPoint);
+    }
+
+    private bool GetInputUp()
+    {
+        switch (inputMethod)
+        {
+            case InputMethod.Mouse:
+                return Input.GetMouseButtonUp(0);
+            case InputMethod.Touch:
+                if (Input.touchCount == 1)
+                {
+                    touch = Input.GetTouch(0);
+
+                    if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+                        return true;
+                }
+                return false;
+            default:
+                return false;
+        }
+    }
+
+    private bool GetInputDown()
+    {
+        switch (inputMethod)
+        {
+            case InputMethod.Mouse:
+                return Input.GetMouseButtonDown(0);
+            case InputMethod.Touch:
+                if (Input.touchCount == 1)
+                {
+                    touch = Input.GetTouch(0);
+
+                    if (touch.phase != TouchPhase.Ended && touch.phase != TouchPhase.Canceled)
+                        return true;
+                }
+                return false;
+            default:
+                return false;
+        }
     }
 }

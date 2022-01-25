@@ -331,7 +331,6 @@ GameObject:
   - component: {fileID: 1188744067}
   - component: {fileID: 1188744066}
   - component: {fileID: 1188744065}
-  - component: {fileID: 1188744064}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -339,19 +338,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1188744064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1188744063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d49b7c1bcd2e07499844da127be038d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ForceModuleActive: 0
 --- !u!114 &1188744065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,6 +393,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1012021574}
     m_Modifications:
+    - target: {fileID: 11454784, guid: b51b1107593c0d94288ccdaa607689ea, type: 3}
+      propertyPath: inputMethod
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 22454784, guid: b51b1107593c0d94288ccdaa607689ea, type: 3}
       propertyPath: m_Pivot.x
       value: 0
